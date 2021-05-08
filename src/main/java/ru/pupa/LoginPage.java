@@ -11,7 +11,8 @@ public class LoginPage {
     public WebDriver driver;
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
+        this.driver = driver;
+    }
 
     @FindBy(xpath = "/html/body/main/div[2]/div[1]/div[1]/div[2]/form[1]/div[1]/div[2]/input") //Находим поле с вводом логина
     private WebElement loginField;

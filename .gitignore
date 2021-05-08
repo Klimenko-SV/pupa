@@ -2,4 +2,6 @@
 /shelf/
 /.idea/workspace.xml
 .idea/
-
+/target/
+*.iml
+/src/test/java/ru/pupa/chromedriver.exe

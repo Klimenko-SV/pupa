@@ -30,20 +30,58 @@ public class SendTest {
         loginPage.inputPasswd(ConfProperties.getProperty("password"));
         //нажимаем кнопку входа
         loginPage.clickLoginBtn();
-        //нажимаем кнопку "Написать письмо
-        profilePage.writeLetter();
-        //вводим получателя письма
-        profilePage.RecipientArea(ConfProperties.getProperty("sendto"));
-        //вводим тему письма
-        profilePage.SubjArea(ConfProperties.getProperty("sendSubject"));
-        //вводим текст письма
-        profilePage.TextOfLetter(ConfProperties.getProperty("sendText"));
-        //нажимаем кнопку отправить
-        profilePage.sendButton();
-        //нажимаем кнопку закрытия окна отправки сообщения
-        profilePage.closeButton();
 
+        //ждем 3 сек
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //
+        profilePage.writeLetter();
+        //ждем 3 сек
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //выбираем раздел "шаблоны"
+        profilePage.patternBtnClick();
+
+        //ждем 1 сек
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //выбираем нужный шаблон
+        profilePage.myPatternClick();
+
+        //ждем 2 сек
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //заполняем поле "кому"
+        String mailRecipient = ConfProperties.getProperty("sendto");
+        profilePage.RecipientArea(mailRecipient);
+
+        //ждем 2 сек
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //нажимаем кнопку "отправить"
+        profilePage.sendLetterClick();
     }
+
+
     @AfterClass
     public static void tearDown() {
         profilePage.userLogout();

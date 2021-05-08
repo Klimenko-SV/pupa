@@ -5,26 +5,25 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-//import java.util.Set;
-
 
 public class ProfilePage {
     //конструктор класса, занимающийся инициализацией полей класса
     public WebDriver driver;
     public ProfilePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
+        this.driver = driver;
+    }
 
     //определение локатора меню пользователя
-    @FindBy(xpath = "//*[contains(@class, 'x-ph__menu__button__text x-ph__menu__button__text_auth')]")
+    @FindBy(xpath = "//*[contains(@class, 'ph-project__user-name svelte-h2te2i')]")
     private WebElement userMail;
 
     //определение локатора кнопки выхода из аккаунта
-    @FindBy(xpath = "/html/body/div[3]/div[1]/table/tbody/tr/td[2]/div[1]/table/tbody/tr/td[2]")
+    @FindBy(xpath = "//*[contains(@class, 'ph-text svelte-1fv44hj')]")
     private WebElement logoutBtn;
 
     //определяем локатор кнопки "написать письмо"
-    @FindBy(xpath = "//*[contains(@class, 'compose-button compose-button_white compose-button_base compose-button_compact compose-button_with-dropdown js-shortcut')]")
+    @FindBy(xpath = "//*[contains(@class, 'compose-button')]")
     private WebElement writeBtn;
 
     //Находим локатор поля "Кому"
@@ -47,32 +46,51 @@ public class ProfilePage {
     @FindBy(xpath = "/html/body/div[9]/div/div/div[2]/div[2]/div/div/div[1]/span")
     private WebElement closeBtn;
 
+    //находим локатор кнопки "отправленные"
+    @FindBy(xpath = "//*[contains(@href, '/sent/')]")
+    private WebElement sendetBtn;
+
+    //находим локатор ссылки "шаблоны"
+    @FindBy(xpath = "//*[contains(@class, 'text--2BGkj')]")
+    private WebElement patternBtn;
+
+    //находим локатор нужного шаблона
+    @FindBy(xpath = "/html/body/div[15]/div[2]/div/div[1]/div[2]/div[3]/div[5]/div/div/div[1]/div/div/div[2]/div[2]/div[2]/div/div/div/div/div/div/div[2]/div[2]/div/div/div/span[2]")
+    private WebElement myPattern;
+
+    //Находим локатор кнопки "Отправить"
+    @FindBy(xpath = "//*[contains(@data-title-shortcut, 'Ctrl+Enter')]")
+    private WebElement sendLetterBtn;
 
     //метод для получения имени пользователя из меню пользователя
     public String getUserMail() {
         String uMail = userMail.getText();
         return uMail; }
 
-    /*метод для нажатия кнопки меню пользователя
-    public void entryMenu() {
-        userMenu.click(); }
-*/
+    //метод для нажатия кнопки "оправленные"
+    public void clickSendetBtn() {
+        sendetBtn.click(); }
+
     //метод для нажатия кнопки выхода из аккаунта
     public void userLogout() {
+        userMail.click();
         logoutBtn.click(); }
 
     //метод для нажатия кнопки "написать письмо"
     public void writeLetter() {
         writeBtn.click();
-    }
-    //метод заполнения поля "Кому"
-    public void RecipientArea(String sendTo) {
         driver.switchTo().activeElement();
-        sendToArea.sendKeys(sendTo);
     }
+
+    //метод заполнения поля "Кому"
+    public void RecipientArea(String sendTo) { sendToArea.sendKeys(sendTo); }
+
+    //метод заполнения поля "тема"
     public void SubjArea(String subject){
         subjectText.sendKeys(subject);
     }
+
+    //метод заполнения поля "текст письма"
     public void TextOfLetter(String letter){
         letterText.sendKeys(letter);
     }
@@ -85,4 +103,14 @@ public class ProfilePage {
         closeBtn.click();
         driver.switchTo().activeElement();
     }
+    //метод для нажатия ссылки "шаблоны"
+    public void patternBtnClick() { patternBtn.click(); }
+
+    //метод для нажатия ссылки нужного шаблона
+    public void myPatternClick() {
+        myPattern.click();
+
+    }
+    //метод нажатия кнопки "отправить"
+    public void sendLetterClick() { sendLetterBtn.click(); }
 }

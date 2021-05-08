@@ -8,10 +8,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.concurrent.TimeUnit;
 
-public class LoginTest {
+import java.util.concurrent.TimeUnit;
+
+public class DeleteTest {
     public static LoginPage loginPage;
     public static ProfilePage profilePage;
     public static WebDriver driver;
+    public static SendetPage sendetPage;
 
     //Осуществление начальных настроек
     @BeforeClass
@@ -23,22 +26,50 @@ public class LoginTest {
         driver.get(ConfProperties.getProperty("loginpage")); //получаем ссылку на страницу входа
         loginPage = new LoginPage(driver);
         profilePage = new ProfilePage(driver);
+        sendetPage = new SendetPage(driver);
     }
-
     @Test
-    public void loginTest() {
-        //значение login/password берутся из файла настроек по аналогии с chromedriver
-        //и loginpage, вводим логин
-        loginPage.inputLogin(ConfProperties.getProperty("sendSubject"));
-        //вводим пароль
+    public void deleteTest() {
+        //вводим логин-пароль
+        loginPage.inputLogin(ConfProperties.getProperty("login"));
         loginPage.clickForvardBtn();
         loginPage.inputPasswd(ConfProperties.getProperty("password"));
         //нажимаем кнопку входа
         loginPage.clickLoginBtn();
-        //получаем отображаемый логин
-        String user = profilePage.getUserMail();
-        //и сравниваем его с логином из файла настроек
-        Assert.assertEquals(ConfProperties.getProperty("login"), user);
+        //ждем 3 сек
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //нажимаем кнопку "отправленные"
+        profilePage.clickSendetBtn();
+
+        //ждем
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //выделяем и удаляем последнее отправленное письмо
+        sendetPage.checkLetter();
+
+        //ждем
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        sendetPage.delLetter();
+
+        //ждем
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @AfterClass
