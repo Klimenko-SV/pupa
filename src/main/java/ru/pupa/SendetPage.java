@@ -1,9 +1,8 @@
 package ru.pupa;
 
-import com.sun.source.tree.ParenthesizedTree;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 public class SendetPage {
@@ -13,20 +12,14 @@ public class SendetPage {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
-    //ищем локатор чекбокса с "выделеть все письма"
-    @FindBy(xpath = "//*[contains(@class, 'llc')]")
-    private WebElement checkBoxLetter;
-
-    //ищем локатор чекбокса с "Удалить"
-    @FindBy(xpath = "//*[contains(@data-title-shortcut, 'Del')]")
-    private WebElement delBoxLetter;
-
 
     //метод нажатия на чекбокс "выделить последнее отправленное письмо"
-    public void checkLetter() { checkBoxLetter.click(); }
+    public void checkLetter() {
+        driver.findElement(By.className("llc")).click(); }
 
     //метод нажатия на чекбокс "Удалить"
-    public void delLetter() { delBoxLetter.click(); }
+    public void delLetter() {
+        driver.findElement(By.className("ico_16-delete")).click(); }
 
 
 
