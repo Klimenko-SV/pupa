@@ -13,19 +13,19 @@ public class InOutOfTest {
     public static SendetPage sendetPage;
 
     @BeforeClass
-    public static void setup(){
+    final public static void setup(){
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver")); //определение пути до драйвера и его настройка
         WebDriver driver = new ChromeDriver(); //создание экземпляра драйвера
         driver.manage().window().maximize(); //разворачиваем окно на весь экран
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); //максимальная задержка на выполнение теста 10 секунд
+        driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS); //максимальная задержка на загрузку скрипта 10 секунд
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("loginpage")); //получаем ссылку на страницу входа
-        loginPage = new LoginPage(driver);
-        profilePage = new ProfilePage(driver);
-        sendetPage = new SendetPage(driver);
+        InOutOfTest.driver = driver;
     }
 
     @AfterClass
-    public static void tearDown() {
+    final public static void tearDown() {
         profilePage.userLogout();
         try {
             profilePage.driver.close();

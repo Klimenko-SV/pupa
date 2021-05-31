@@ -5,8 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class ProfilePage {
+final public class ProfilePage {
     //конструктор класса, занимающийся инициализацией полей класса
     public WebDriver driver;
     public ProfilePage(WebDriver driver) {
@@ -27,7 +28,8 @@ public class ProfilePage {
     //метод для нажатия кнопки выхода из аккаунта
     public void userLogout() {
         driver.findElement(By.className("ph-project__user-name")).click();
-        driver.findElement(By.className("ph-text")).click(); }
+        driver.findElement(By.className("ph-text")).click();
+    }
 
     //метод для нажатия кнопки "написать письмо"
     public void writeLetter() {
