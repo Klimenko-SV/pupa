@@ -6,30 +6,23 @@ public class SendTest extends InOutOfTest {
 
     @Test
     final public void sendTest() {
+        //Заходим на сайт, логинимся
         loginPage = new LoginPage(driver);
-        //значение login/password берутся из файла настроек
         loginPage.inputLogin(ConfProperties.getProperty("login"));
-        //вводим пароль
         loginPage.clickForvardBtn();
         loginPage.inputPasswd(ConfProperties.getProperty("password"));
-        //нажимаем кнопку входа
         loginPage.clickLoginBtn();
 
-        //Заходим в раздел отправки писем
+        //Пишем новое письмо из стандартного шаблона
         profilePage = new ProfilePage(driver);
         profilePage.writeLetter();
-        //выбираем раздел "шаблоны"
         profilePage.patternBtnClick();
-        //выбираем нужный шаблон
-        WaitDownload.wait(1);
+        WaitDownload.wait(3);
         profilePage.myPatternClick();
-        //заполняем поле "кому"
-        WaitDownload.wait(1);
+        WaitDownload.wait(3);
         String mailRecipient = ConfProperties.getProperty("sendto");
         profilePage.RecipientArea(mailRecipient);
-        //нажимаем кнопку "отправить"
         profilePage.sendLetterClick();
-        //нажимаем "закрыть окно"
         WaitDownload.wait(1);
         profilePage.closeButton();
         //ждем, чтобы посмотреть, что все верно (это не для тестирования, это для меня)

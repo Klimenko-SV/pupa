@@ -7,17 +7,18 @@ public class DeleteTest extends InOutOfTest {
 
     @Test
     final public void deleteTest() {
+        //Заходим на страницу, логинимся
         loginPage = new LoginPage(driver);
-        //вводим логин-пароль
         loginPage.inputLogin(ConfProperties.getProperty("login"));
         loginPage.clickForvardBtn();
         loginPage.inputPasswd(ConfProperties.getProperty("password"));
-        //нажимаем кнопку входа
         loginPage.clickLoginBtn();
-        //нажимаем кнопку "отправленные"
+
+        //Переходим на страницу отправленных писем
         profilePage = new ProfilePage(driver);
         profilePage.clickSendetBtn();
-        //выделяем и удаляем последнее отправленное письмо
+
+        //Удаляем последнее отправленное письмо
         sendetPage = new SendetPage(driver);
         sendetPage.checkLetter();
         sendetPage.delLetter();
